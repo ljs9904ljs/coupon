@@ -2,13 +2,13 @@
 - 개요
     - 스프링부트로 REST API 제작 + 파이썬으로 API 호출
 
-- python-client 폴더
-    - 스프링부트의 API를 coroutine(async/await)을 활용하여 호출하도록 하는 코드가 작성되어 있다.
-
-- docker-compose.yml 파일
-    - 5개의 Redis Node로 구성된 Redis cluster와 스프링부트를 연결한다.
-- docker-compose_onenode.yml 파일
-    - 1개의 단일 Redis와 스프링부트를 연결한다.
+- 폴더와 파일에 대한 간단한 설명
+    - python-client 폴더
+        - 스프링부트의 API를 coroutine(async/await)을 활용하여 호출하도록 하는 코드가 작성되어 있다.
+    - docker-compose.yml 파일
+        - 5개의 Redis Node로 구성된 Redis cluster와 스프링부트를 연결한다.
+    - docker-compose_onenode.yml 파일
+        - 1개의 단일 Redis와 스프링부트를 연결한다.
 
 
 - [구성 방식] 단일 노드 레디스 vs. 레디스 클러스터(5개 노드)
@@ -25,6 +25,7 @@
         - 그런데 그 지점을 찾을 수가 없다. 파이썬 aiohttp로 요청을 보내는 방식이 잘못되었나? 다른 스트레스 테스트 도구를 사용해보아야 맞을까?
 
 ===================================================================
+
 - CPU/Memory 세팅
     - CPU 종류: 12th Gen Intel(R) Core(TM) i7-12700H
     - 코어: 14개
