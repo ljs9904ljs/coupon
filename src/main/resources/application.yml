@@ -1,0 +1,36 @@
+spring:
+  data:
+    redis:
+      host: redis
+      port: 6379
+      lettuce:
+        pool:
+          max-active: 5
+          max-idle: 5
+          min-idle: 5
+      cluster:
+        nodes:
+          - redis-node-1:7001
+          - redis-node-2:7002
+          - redis-node-3:7003
+          - redis-node-4:7004
+          - redis-node-5:7005
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+metrics:
+  tags:
+    application: my-app
+  web:
+    server:
+      request:
+        autotime:
+          enabled: true
+
+server:
+  tomcat:
+    accept-count: 5
+    max-connections: 10
