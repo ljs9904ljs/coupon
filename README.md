@@ -35,15 +35,15 @@
 
 - <Redis node 1개만 사용, 1000개의 requests, 딱 1회만 실행(캐싱 방지)>
     - 선착순 쿠폰 10000개
-        - spring boot: 1cpu, 1024M mem -> 40TPS, spring boot 실행시간 17초
-        - spring boot: 1cpu, 2048M mem -> 70TPS, spring boot 실행시간 18초
-        - spring boot: 8cpu, 1024M mem -> 440TPS, spring boot 실행시간 12초, 번외) 10000개 기준 1126TPS, 아예 다시 실행해봤더니 1000개 기준 547TPS..?
-        - spring boot: 8cpu, 2048M mem -> 400TPS, spring boot 실행시간 11초
-        - spring boot: 8cpu, 4096M mem -> 500TPS, spring boot 실행시간 13초
-        - spring boot: 16cpu, 1024M mem -> 220TPS, spring boot 실행시간 12초
-        - spring boot: 16cpu, 4096M mem -> 310TPS, spring boot 실행시간 12초
-        - spring boot: 14cpu, 1024M mem -> 505TPS, spring boot 실행시간 13초
-        - spring boot: 14cpu, 4096M mem -> 420TPS, spring boot 실행시간 12초
+        - spring boot: 1cpu, 1024M mem -> 40RPS, spring boot 실행시간 17초
+        - spring boot: 1cpu, 2048M mem -> 70RPS, spring boot 실행시간 18초
+        - spring boot: 8cpu, 1024M mem -> 440RPS, spring boot 실행시간 12초, 번외) 10000개 기준 1126RPS, 아예 다시 실행해봤더니 1000개 기준 547RPS..?
+        - spring boot: 8cpu, 2048M mem -> 400RPS, spring boot 실행시간 11초
+        - spring boot: 8cpu, 4096M mem -> 500RPS, spring boot 실행시간 13초
+        - spring boot: 16cpu, 1024M mem -> 220RPS, spring boot 실행시간 12초
+        - spring boot: 16cpu, 4096M mem -> 310RPS, spring boot 실행시간 12초
+        - spring boot: 14cpu, 1024M mem -> 505RPS, spring boot 실행시간 13초
+        - spring boot: 14cpu, 4096M mem -> 420RPS, spring boot 실행시간 12초
 
 
 - <Redis node 5개를 cluster로 사용, 1000개 || 10000개의 requests, 딱 1회만 실행(캐싱 방지)>
@@ -51,9 +51,9 @@
     - lettuce pool을 5개로 고정해놓고 실험했음.
     - 들어온 request에 랜덤하게 5개의 hash tag 중 하나를 붙이는 식으로 부하를 분산했음. 그래서 선착순 쿠폰이 남아 있어도 실패할 수도 있다.
 
-        - spring boot: 8cpu, 1024M mem -> 440TPS || 1216TPS, spring boot 실행시간 13초, 51실패(10000개 중)
-        - spring boot: 8cpu, 4096M mem -> 364TPS || 1135TPS, spring boot 실행시간 12초, 60실패(10000개 중)
-        - spring boot: 14cpu, 1024M mem -> 466TPS || 921TPS, spring boot 실행시간 13초, 100실패(10000개 중)
+        - spring boot: 8cpu, 1024M mem -> 440RPS || 1216RPS, spring boot 실행시간 13초, 51실패(10000개 중)
+        - spring boot: 8cpu, 4096M mem -> 364RPS || 1135RPS, spring boot 실행시간 12초, 60실패(10000개 중)
+        - spring boot: 14cpu, 1024M mem -> 466RPS || 921RPS, spring boot 실행시간 13초, 100실패(10000개 중)
 
 
 ================================================================================
