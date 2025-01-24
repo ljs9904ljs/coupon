@@ -16,6 +16,18 @@ spring:
           - redis-node-4:7004
           - redis-node-5:7005
 
+  kafka:
+    bootstrap-servers: kafka1:9092,kafka2:9094,kafka3:9096
+    consumer:
+      group-id: my-consumer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
 management:
   endpoints:
     web:
@@ -29,8 +41,3 @@ metrics:
       request:
         autotime:
           enabled: true
-
-server:
-  tomcat:
-    accept-count: 5
-    max-connections: 10

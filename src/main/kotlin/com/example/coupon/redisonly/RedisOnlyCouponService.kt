@@ -1,11 +1,13 @@
 package com.example.coupon.redisonly
 
 import jakarta.annotation.PostConstruct
+import kotlinx.coroutines.Dispatchers
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Service
+import java.util.concurrent.atomic.AtomicInteger
 
 @Service
 class RedisOnlyCouponService(
@@ -13,16 +15,19 @@ class RedisOnlyCouponService(
     private val redisTemplate: StringRedisTemplate
 ) {
 
+    private val atomicint = AtomicInteger(10000)
+
     @PostConstruct
     fun initRedis() {
-//        redisTemplate.opsForValue().set("fcfs", "10000")
+        redisTemplate.connectionFactory?.connection?.serverCommands()?.flushDb()
+        redisTemplate.opsForValue().set("fcfs", "10000")
 
 
-        redisTemplate.opsForValue().set("{1}fcfs", "2000")
-        redisTemplate.opsForValue().set("{2}fcfs", "2000")
-        redisTemplate.opsForValue().set("{3}fcfs", "2000")
-        redisTemplate.opsForValue().set("{4}fcfs", "2000")
-        redisTemplate.opsForValue().set("{5}fcfs", "2000")
+//        redisTemplate.opsForValue().set("{1}fcfs", "2000")
+//        redisTemplate.opsForValue().set("{2}fcfs", "2000")
+//        redisTemplate.opsForValue().set("{3}fcfs", "2000")
+//        redisTemplate.opsForValue().set("{4}fcfs", "2000")
+//        redisTemplate.opsForValue().set("{5}fcfs", "2000")
     }
 
     fun randomNodeNum(): Int {
@@ -30,15 +35,15 @@ class RedisOnlyCouponService(
     }
 
     fun issueCoupon(req: IssueCouponReq): IssueCouponRes {
-
-        Thread.sleep(5000)
         if (redisTemplate.opsForValue().getAndSet(req.id, "1") == null) {
 
-//            val decrementedValue = redisTemplate.opsForValue().decrement("fcfs")
-//                ?: return IssueCouponRes(code = -1)
+//            val decrementedValue = atomicint.decrementAndGet()
 
-            val decrementedValue = redisTemplate.opsForValue().decrement("{${randomNodeNum()}}fcfs")
+            val decrementedValue = redisTemplate.opsForValue().decrement("fcfs")
                 ?: return IssueCouponRes(code = -1)
+
+//            val decrementedValue = redisTemplate.opsForValue().decrement("{${randomNodeNum()}}fcfs")
+//                ?: return IssueCouponRes(code = -1)
 
             if (decrementedValue >= 0) {
                 return IssueCouponRes(code = 0, num = decrementedValue.toInt())

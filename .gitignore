@@ -38,3 +38,8 @@ out/
 
 ### Kotlin ###
 .kotlin
+
+
+### Python venv ###
+/python-client/**/__pycache__/
+/python-client/my/

@@ -20,24 +20,24 @@ class RedisConfiguration(
     private val redisClusterConfiguration: RedisClusterConfiguration
 ) {
 
-//    @Bean
-//    fun redisConnectionFactory(): RedisConnectionFactory {
-//        val redisStandaloneConfiguration = RedisStandaloneConfiguration()
-//        redisStandaloneConfiguration.hostName = host
-//        redisStandaloneConfiguration.port = port
-//
-//        return LettuceConnectionFactory(redisStandaloneConfiguration)
-//    }
-
     @Bean
     fun redisConnectionFactory(): RedisConnectionFactory {
-        println("nodes: ${redisClusterConfiguration.nodes}")
+        val redisStandaloneConfiguration = RedisStandaloneConfiguration()
+        redisStandaloneConfiguration.hostName = host
+        redisStandaloneConfiguration.port = port
 
-        val clusterConfig = RedisClusterConfiguration(
-            redisClusterConfiguration.nodes
-        )
-        return LettuceConnectionFactory(clusterConfig)
+        return LettuceConnectionFactory(redisStandaloneConfiguration)
     }
+
+//    @Bean
+//    fun redisConnectionFactory(): RedisConnectionFactory {
+//        println("nodes: ${redisClusterConfiguration.nodes}")
+//
+//        val clusterConfig = RedisClusterConfiguration(
+//            redisClusterConfiguration.nodes
+//        )
+//        return LettuceConnectionFactory(clusterConfig)
+//    }
 
     @Bean
     fun redisTemplate(): RedisTemplate<*, *>? {

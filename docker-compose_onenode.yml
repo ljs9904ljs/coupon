@@ -12,7 +12,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
+          cpus: '0.01'
           memory: 128M
         reservations:
           memory: 128M
@@ -23,6 +23,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      - redis
     ports:
       - "8080:8080"
     volumes:
@@ -71,6 +73,9 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     networks:
       - one-node
+
+
+
 
 networks:
   one-node:

@@ -29,6 +29,11 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("io.micrometer:micrometer-registry-prometheus")
 
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
+
+	implementation("org.springframework.kafka:spring-kafka:3.3.2")
+
+
 	runtimeOnly("com.mysql:mysql-connector-j")
 	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 
