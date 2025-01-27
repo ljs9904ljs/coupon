@@ -46,7 +46,7 @@ class RedisOnlyCouponService(
 //                ?: return IssueCouponRes(code = -1)
 
             if (decrementedValue >= 0) {
-                return IssueCouponRes(code = 0, num = decrementedValue.toInt())
+                return IssueCouponRes(code = 0, clientId = req.id, num = decrementedValue.toInt())
             } else {
                 return IssueCouponRes(code = -1)
             }
